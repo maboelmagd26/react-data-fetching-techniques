@@ -2,17 +2,47 @@ import React from "react";
 
 const RecipeUI = ({ data }) => {
   return (
-    <div>
-      <ul>
-        {data["recipes"]?.map(
-          ({ id, name, prepTimeMinutes, cookTimeMinutes }) => (
-            <>
-              <li id={id}>{name}</li>
-              <span>total meal Time : {cookTimeMinutes + prepTimeMinutes}</span>
-            </>
-          )
-        )}
-      </ul>
+    <div className="">
+      <h1>{data?.name}</h1>
+      <div className="flex justify-between">
+        <img src={data?.image} alt="" />
+        <div className="flex flex-col ">
+          <span>enough for : {data.servings}</span>
+          <span>coocking time: {data.cookTimeMinutes}</span>
+          <span>preparation time: {data.prepTimeMinutes}</span>
+          <span>
+            total time:
+            {parseInt(data.cookTimeMinutes + data.prepTimeMinutes)}
+          </span>
+        </div>
+        <div className="flex flex-col">
+          <span>{data?.difficulty}</span>
+          <span>
+            {data?.tags?.map((t) => (
+              <div>
+                <small>{t}</small>
+                <br />
+              </div>
+            ))}
+          </span>
+          <span>{data?.caloriesPerServing}</span>
+        </div>
+      </div>
+
+      <div className="flex">
+        <ol>
+          {data.ingredients?.map((i) => (
+            <li>{i}</li>
+          ))}
+        </ol>
+        <ol>
+          {data.instructions?.map((step) => (
+            <li>{step}</li>
+          ))}
+        </ol>
+      </div>
+
+      <hr />
     </div>
   );
 };
