@@ -33,6 +33,7 @@ const Recipes = () => {
       const data = await response.json();
       setData(data);
       cache.set(q, data);
+      console.log(cache);
     } catch (error) {
       if (error.name === "AbortError") {
         console.log("request cancelled");
