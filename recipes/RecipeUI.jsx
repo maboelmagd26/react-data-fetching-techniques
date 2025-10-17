@@ -31,13 +31,13 @@ const RecipeUI = ({ data }) => {
 
       <div className="flex">
         <ol>
-          {data.ingredients?.map((i) => (
-            <li>{i}</li>
+          {data.ingredients?.map((i, index) => (
+            <li key={index}>{i}</li>
           ))}
         </ol>
         <ol>
-          {data.instructions?.map((step) => (
-            <li>{step}</li>
+          {data.instructions?.map((step, index) => (
+            <li key={index}>{step}</li>
           ))}
         </ol>
       </div>
