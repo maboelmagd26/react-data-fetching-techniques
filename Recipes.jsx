@@ -10,15 +10,21 @@ const Recipes = () => {
   const url = "https://dummyjson.com/recipes";
   const controller = new AbortController();
   const signal = controller.signal;
+  const cache = new Map();
+
   async function fetchRecipe(q) {
     // conditions and starting points (loading and states)
     if (!q && !dirty) {
       return;
     }
+    if (cache.has(q)) {
+      setData(cache.get(q));
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${url}/${encodeURIComponent(query)}`, {
+      const response = await fetch(`${url}/${encodeURIComponent(q)}`, {
         signal,
       });
       if (!response.ok) {
@@ -26,6 +32,7 @@ const Recipes = () => {
       }
       const data = await response.json();
       setData(data);
+      cache.set(q, data);
     } catch (error) {
       if (error.name === "AbortError") {
         console.log("request cancelled");
